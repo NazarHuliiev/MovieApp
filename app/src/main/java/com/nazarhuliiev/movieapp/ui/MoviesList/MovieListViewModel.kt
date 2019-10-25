@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.ui
+package com.nazarhuliiev.movieapp.ui.MoviesList
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,8 +9,8 @@ class MovieListViewModel : ViewModel() {
 
     private val movieRepository: MovieRepository = MovieRepository()
 
-    val movie: MutableLiveData<LocalMovie> by lazy {
+    val movies: MutableLiveData<List<LocalMovie>> by lazy {
 
-       movieRepository.getMovie()
+       movieRepository.getAllMovies()
     }
 }
