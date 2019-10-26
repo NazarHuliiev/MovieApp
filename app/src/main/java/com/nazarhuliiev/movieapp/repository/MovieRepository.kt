@@ -4,22 +4,22 @@ import androidx.lifecycle.MutableLiveData
 
 class MovieRepository {
 
-    fun getMovie(id: Int) : MutableLiveData<LocalMovie>{
+    fun getMovie(id: Int) : MutableLiveData<Movie>{
 
-        return MutableLiveData(LocalMovie("El Camino", 2019, 7.6f));
+        return MutableLiveData(Movie("El Camino", 2019, 7.6f));
     }
 
-    fun getAllMovies() : MutableLiveData<List<LocalMovie>> {
+    fun getAllMovies() : MutableLiveData<List<Movie>> {
 
         val movies = listOf(
-            LocalMovie("Movie 1", 1991, 5f),
-            LocalMovie("Movie 2", 1992, 1f),
-            LocalMovie("Movie 3", 1993, 3f),
-            LocalMovie("Movie 4", 1994, 5f),
-            LocalMovie("Movie 5", 1995, 1f),
-            LocalMovie("Movie 6", 1996, 3f),
-            LocalMovie("Movie 7", 1997, 5f),
-            LocalMovie("Movie 8", 1998, 5f));
+            Movie("Movie 1", 1991, 5f),
+            Movie("Movie 2", 1992, 1f),
+            Movie("Movie 3", 1993, 3f),
+            Movie("Movie 4", 1994, 5f),
+            Movie("Movie 5", 1995, 1f),
+            Movie("Movie 6", 1996, 3f),
+            Movie("Movie 7", 1997, 5f),
+            Movie("Movie 8", 1998, 5f));
 
         return MutableLiveData(movies);
     }
