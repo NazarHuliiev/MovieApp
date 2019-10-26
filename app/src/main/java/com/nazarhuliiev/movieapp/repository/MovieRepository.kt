@@ -1,15 +1,16 @@
 package com.nazarhuliiev.movieapp.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 class MovieRepository {
 
-    fun getMovie(id: Int) : MutableLiveData<Movie>{
+    fun getMovie(id: Int) : LiveData<Movie> {
 
         return MutableLiveData(Movie("El Camino", 2019, 7.6f));
     }
 
-    fun getAllMovies() : MutableLiveData<List<Movie>> {
+    fun getAllMovies() : LiveData<List<Movie>> {
 
         val movies = listOf(
             Movie("Movie 1", 1991, 5f),
