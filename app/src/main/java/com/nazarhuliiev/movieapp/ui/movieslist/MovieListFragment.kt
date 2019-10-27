@@ -16,8 +16,8 @@ class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        moviesList.layoutManager = GridLayoutManager(context, 2)
-        moviesList.adapter = adapter
+        movies_list.layoutManager = GridLayoutManager(context, 2)
+        movies_list.adapter = adapter
 
         viewModel.getMovies().observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)

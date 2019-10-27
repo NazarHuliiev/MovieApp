@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.contentFrame, MovieListFragment(), "moviesList")
+            .add(R.id.content_frame, MovieListFragment(), "moviesList")
             .commit()
     }
 }

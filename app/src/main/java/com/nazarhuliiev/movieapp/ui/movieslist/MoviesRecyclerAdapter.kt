@@ -18,7 +18,7 @@ class MoviesRecyclerAdapter: ListAdapter<Movie, MovieViewHolder>(DiffCallback())
 
     class DiffCallback: DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-            return oldItem.name == newItem.name && oldItem.year == newItem.year
+            return oldItem.name == newItem.name
         }
 
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
