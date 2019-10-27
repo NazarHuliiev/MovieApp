@@ -1,6 +1,5 @@
-package com.nazarhuliiev.movieapp.ui.MoviesList
+package com.nazarhuliiev.movieapp.ui.movieslist
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,7 +19,7 @@ class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
         moviesList.layoutManager = GridLayoutManager(context, 2)
         moviesList.adapter = adapter
 
-        viewModel.movies.observe(viewLifecycleOwner, Observer {
+        viewModel.getMovies().observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
     }

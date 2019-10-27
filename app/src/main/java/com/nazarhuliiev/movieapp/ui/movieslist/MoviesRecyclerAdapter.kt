@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.ui.MoviesList
+package com.nazarhuliiev.movieapp.ui.movieslist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

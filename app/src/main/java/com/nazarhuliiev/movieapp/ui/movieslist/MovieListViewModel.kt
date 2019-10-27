@@ -1,7 +1,6 @@
-package com.nazarhuliiev.movieapp.ui.MoviesList
+package com.nazarhuliiev.movieapp.ui.movieslist
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.nazarhuliiev.movieapp.repository.Movie
 import com.nazarhuliiev.movieapp.repository.MovieRepository
@@ -9,9 +8,13 @@ import com.nazarhuliiev.movieapp.repository.MovieRepository
 class MovieListViewModel : ViewModel() {
 
     private val movieRepository: MovieRepository = MovieRepository()
+    private val movies = loadMovies()
 
-    val movies: LiveData<List<Movie>> by lazy {
+    private fun loadMovies(): LiveData<List<Movie>>{
+        return movieRepository.getAllMovies()
+    }
 
-       movieRepository.getAllMovies()
+    fun getMovies(): LiveData<List<Movie>> {
+        return movies
     }
 }
