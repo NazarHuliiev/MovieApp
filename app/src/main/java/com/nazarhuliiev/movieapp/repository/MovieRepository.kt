@@ -21,7 +21,7 @@ class MovieRepository {
         val list = mutableListOf<Movie>()
 
         for (remoteMovie in remotePopularMovies.results){
-            val m = Movie(remoteMovie.original_title, remoteMovie.release_date.year, remoteMovie.vote_average.toFloat())
+            val m = Movie(remoteMovie.title, remoteMovie.releaseDate.year, remoteMovie.voteAverage.toFloat())
             list.add(m)
         }
 
