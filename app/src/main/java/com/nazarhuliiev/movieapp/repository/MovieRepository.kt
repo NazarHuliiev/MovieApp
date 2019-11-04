@@ -5,23 +5,28 @@ import androidx.lifecycle.MutableLiveData
 
 class MovieRepository {
 
-    fun getMovie(id: Int) : LiveData<Movie> {
+    private  var memoryCachMovies = mutableListOf<Movie>()
 
+    private val wikiApiServe by lazy {
+        TheMovieDatabaseApiService.create()
+    }
+
+    fun getMovie(id: Int) : LiveData<Movie> {
         return MutableLiveData(Movie("El Camino", 2019, 7.6f))
     }
 
-    fun getAllMovies() : LiveData<List<Movie>> {
+    suspend fun getAllMovies() : List<Movie> {
+        return mapMovies(wikiApiServe.getPopularMovies("bea5f6ac0e862f1b35f599b2d666959f"))
+    }
 
-        val movies = listOf(
-            Movie("Movie 1", 1991, 5f),
-            Movie("Movie 2", 1992, 1f),
-            Movie("Movie 3", 1993, 3f),
-            Movie("Movie 4", 1994, 5f),
-            Movie("Movie 5", 1995, 1f),
-            Movie("Movie 6", 1996, 3f),
-            Movie("Movie 7", 1997, 5f),
-            Movie("Movie 8", 1998, 5f))
+    private fun mapMovies(remotePopularMovies: RemotePopularMovies): List<Movie>{
+        val list = mutableListOf<Movie>()
 
-        return MutableLiveData(movies)
+        for (remoteMovie in remotePopularMovies.results){
+            val m = Movie(remoteMovie.original_title, remoteMovie.release_date.year, remoteMovie.vote_average.toFloat())
+            list.add(m)
+        }
+
+        return list
     }
 }

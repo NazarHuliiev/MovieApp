@@ -1,12 +1,13 @@
 package com.nazarhuliiev.movieapp.repository
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class RemotePopularMovie (
     @SerializedName("poster_path") val poster_path : String,
     @SerializedName("adult") val adult : Boolean,
     @SerializedName("overview") val overview : String,
-    @SerializedName("release_date") val release_date : String,
+    @SerializedName("release_date") val release_date : Date,
     @SerializedName("genre_ids") val genre_ids : List<Int>,
     @SerializedName("id") val id : Int,
     @SerializedName("original_title") val original_title : String,
