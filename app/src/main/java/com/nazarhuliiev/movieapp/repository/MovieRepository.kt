@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 
 class MovieRepository {
 
-    private  var memoryCachMovies = mutableListOf<Movie>()
-
     private val wikiApiServe by lazy {
         TheMovieDatabaseApiService.create()
     }
