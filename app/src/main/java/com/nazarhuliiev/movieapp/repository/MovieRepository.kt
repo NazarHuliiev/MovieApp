@@ -2,6 +2,7 @@ package com.nazarhuliiev.movieapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.nazarhuliiev.movieapp.BuildConfig
 
 class MovieRepository {
 
@@ -14,7 +15,7 @@ class MovieRepository {
     }
 
     suspend fun getAllMovies() : List<Movie> {
-        return mapMovies(wikiApiServe.getPopularMovies("bea5f6ac0e862f1b35f599b2d666959f"))
+        return mapMovies(wikiApiServe.getPopularMovies(BuildConfig.API_KEY))
     }
 
     private fun mapMovies(remotePopularMovies: RemotePopularMovies): List<Movie>{
