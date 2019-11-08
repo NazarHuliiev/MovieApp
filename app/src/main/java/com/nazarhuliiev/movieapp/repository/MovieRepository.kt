@@ -15,7 +15,7 @@ class MovieRepository {
     }
 
     suspend fun getAllMovies() : List<Movie> {
-        return mapMovies(wikiApiServe.getPopularMovies(BuildConfig.API_KEY))
+        return mapMovies(wikiApiServe.getPopularMovies())
     }
 
     private fun mapMovies(remotePopularMovies: RemotePopularMovies): List<Movie>{
