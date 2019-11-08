@@ -1,6 +1,7 @@
 package com.nazarhuliiev.movieapp.repository
 
 import com.nazarhuliiev.movieapp.BuildConfig
+import com.nazarhuliiev.movieapp.repository.gson.GsonFactory
 import com.nazarhuliiev.movieapp.repository.httpclient.HttpClientFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,7 +16,7 @@ interface TheMovieDatabaseApiService {
         fun create(): TheMovieDatabaseApiService{
 
             val retrofit = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(GsonFactory.create()))
                 .baseUrl(BuildConfig.API_URL)
                 .client(HttpClientFactory.create())
                 .build()
