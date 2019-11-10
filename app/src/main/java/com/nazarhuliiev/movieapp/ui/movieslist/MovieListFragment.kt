@@ -19,7 +19,7 @@ class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
         movies_list.layoutManager = GridLayoutManager(context, 2)
         movies_list.adapter = adapter
 
-        viewModel.getMovies().observe(viewLifecycleOwner, Observer {
+        viewModel.movies.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
     }
