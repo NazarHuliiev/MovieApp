@@ -2,11 +2,10 @@ package com.nazarhuliiev.movieapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.nazarhuliiev.movieapp.BuildConfig
 
 class MovieRepository {
 
-    private val wikiApiServe by lazy {
+    private val theMovieDatabaseService by lazy {
         TheMovieDatabaseApiService.create()
     }
 
@@ -15,7 +14,7 @@ class MovieRepository {
     }
 
     suspend fun getAllMovies() : List<Movie> {
-        return mapMovies(wikiApiServe.getPopularMovies())
+        return mapMovies(theMovieDatabaseService.getPopularMovies())
     }
 
     private fun mapMovies(remotePopularMovies: RemotePopularMovies): List<Movie>{
