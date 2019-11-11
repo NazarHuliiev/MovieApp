@@ -3,7 +3,7 @@ package com.nazarhuliiev.movieapp.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-class MovieRepository {
+class MovieRepositoryImp {
 
     private val theMovieDatabaseService by lazy {
         TheMovieDatabaseApiService.create()
