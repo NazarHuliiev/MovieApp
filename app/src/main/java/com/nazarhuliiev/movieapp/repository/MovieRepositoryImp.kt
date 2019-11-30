@@ -3,17 +3,13 @@ package com.nazarhuliiev.movieapp.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-class MovieRepositoryImp {
+class MovieRepositoryImp(private val theMovieDatabaseService: TheMovieDatabaseApiService): MovieRepository {
 
-    private val theMovieDatabaseService by lazy {
-        TheMovieDatabaseApiService.create()
-    }
-
-    fun getMovie(id: Int) : LiveData<Movie> {
+    override fun getMovie(id: Int) : LiveData<Movie> {
         return MutableLiveData(Movie("El Camino", 2019, 7.6f))
     }
 
-    suspend fun getAllMovies() : List<Movie> {
+    override suspend fun getAllMovies() : List<Movie> {
         return mapMovies(theMovieDatabaseService.getPopularMovies())
     }
 
