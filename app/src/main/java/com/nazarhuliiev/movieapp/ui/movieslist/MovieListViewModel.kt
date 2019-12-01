@@ -3,9 +3,8 @@ package com.nazarhuliiev.movieapp.ui.movieslist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.nazarhuliiev.movieapp.repository.Movie
-import com.nazarhuliiev.movieapp.repository.MovieRepository
-import com.nazarhuliiev.movieapp.repository.MovieRepositoryImp
+import com.nazarhuliiev.movieapp.repository.movie.Movie
+import com.nazarhuliiev.movieapp.repository.movie.MovieRepository
 
 class MovieListViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.repository
+package com.nazarhuliiev.movieapp.repository.movie
 
 import com.google.gson.annotations.SerializedName
 

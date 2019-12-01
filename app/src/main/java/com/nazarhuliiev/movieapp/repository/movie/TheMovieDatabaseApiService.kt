@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.repository
+package com.nazarhuliiev.movieapp.repository.movie
 
 import retrofit2.http.GET
 
