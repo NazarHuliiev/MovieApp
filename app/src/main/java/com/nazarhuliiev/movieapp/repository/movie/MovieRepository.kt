@@ -6,5 +6,5 @@ interface MovieRepository {
 
     fun getMovie(id: Int) : LiveData<Movie>
 
-    suspend fun getAllMovies() : List<Movie>
+    fun getMovies(page: Int) : List<Movie>
 }
