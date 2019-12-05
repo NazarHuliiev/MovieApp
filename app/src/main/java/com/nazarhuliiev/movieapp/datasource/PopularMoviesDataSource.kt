@@ -1,7 +1,9 @@
-package com.nazarhuliiev.movieapp.repository.movie
+package com.nazarhuliiev.movieapp.datasource
 
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
+import com.nazarhuliiev.movieapp.repository.movie.Movie
+import com.nazarhuliiev.movieapp.repository.movie.MovieRepository
 
 class PopularMoviesDataSource private constructor(
     private val movieRepository: MovieRepository
@@ -11,14 +13,14 @@ class PopularMoviesDataSource private constructor(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Movie>
     ) {
-        val page = movieRepository.getMovies(1)
+        val page = movieRepository.getPopularMovies(1)
 
         callback.onResult(page, 1, 2)
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
 
-        val page = movieRepository.getMovies(params.key)
+        val page = movieRepository.getPopularMovies(params.key)
         callback.onResult(page, params.key + 1)
     }
 
@@ -30,7 +32,8 @@ class PopularMoviesDataSource private constructor(
         private val movieRepository: MovieRepository
     ) : DataSource.Factory<Int, Movie>() {
 
-        override fun create() = PopularMoviesDataSource(movieRepository)
+        override fun create() =
+            PopularMoviesDataSource(movieRepository)
     }
 }
 

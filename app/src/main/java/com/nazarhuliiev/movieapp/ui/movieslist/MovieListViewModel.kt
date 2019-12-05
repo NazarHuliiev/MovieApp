@@ -6,7 +6,7 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.nazarhuliiev.movieapp.repository.movie.Movie
 import com.nazarhuliiev.movieapp.repository.movie.MovieRepository
-import com.nazarhuliiev.movieapp.repository.movie.PopularMoviesDataSource
+import com.nazarhuliiev.movieapp.datasource.PopularMoviesDataSource
 
 class MovieListViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 

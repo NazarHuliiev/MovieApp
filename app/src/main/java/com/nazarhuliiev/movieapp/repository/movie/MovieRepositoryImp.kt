@@ -18,7 +18,7 @@ class MovieRepositoryImp(private val movieService: MovieService) :
         )
     }
 
-    override fun getMovies(page: Int): List<Movie> {
+    override fun getPopularMovies(page: Int): List<Movie> {
         return mapMovies(movieService.getPopularMovies(page).execute().body() as RemotePopularMovies)
     }
 

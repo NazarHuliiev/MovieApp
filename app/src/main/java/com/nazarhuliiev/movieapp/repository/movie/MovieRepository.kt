@@ -6,5 +6,5 @@ interface MovieRepository {
 
     fun getMovie(id: Int) : LiveData<Movie>
 
-    fun getMovies(page: Int) : List<Movie>
+    fun getPopularMovies(page: Int) : List<Movie>
 }
