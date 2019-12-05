@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.repository.gson
+package com.nazarhuliiev.movieapp.service.gson
 
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer

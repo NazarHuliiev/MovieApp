@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.repository.movie
+package com.nazarhuliiev.movieapp.service.movie
 
 import com.google.gson.annotations.SerializedName
 import org.threeten.bp.LocalDate

@@ -2,6 +2,8 @@ package com.nazarhuliiev.movieapp.repository.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovies
+import com.nazarhuliiev.movieapp.service.movie.TheMovieDatabaseApiService
 
 class MovieRepositoryImp(private val theMovieDatabaseService: TheMovieDatabaseApiService) :
     MovieRepository {

@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.repository.gson
+package com.nazarhuliiev.movieapp.service.gson
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

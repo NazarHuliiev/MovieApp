@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.repository.httpclient
+package com.nazarhuliiev.movieapp.service.httpclient
 
 import okhttp3.OkHttpClient
 

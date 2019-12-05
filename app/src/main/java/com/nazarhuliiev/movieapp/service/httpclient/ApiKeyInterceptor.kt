@@ -1,4 +1,4 @@
-package com.nazarhuliiev.movieapp.repository.httpclient
+package com.nazarhuliiev.movieapp.service.httpclient
 
 import com.nazarhuliiev.movieapp.BuildConfig
 import okhttp3.Interceptor

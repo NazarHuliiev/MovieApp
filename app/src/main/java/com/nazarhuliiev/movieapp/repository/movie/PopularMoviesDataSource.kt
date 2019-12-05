@@ -2,7 +2,6 @@ package com.nazarhuliiev.movieapp.repository.movie
 
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import kotlinx.coroutines.Job
 
 class PopularMoviesDataSource private constructor(
     private val movieRepository: MovieRepository
