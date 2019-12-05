@@ -3,9 +3,9 @@ package com.nazarhuliiev.movieapp.repository.movie
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovies
-import com.nazarhuliiev.movieapp.service.movie.TheMovieDatabaseApiService
+import com.nazarhuliiev.movieapp.service.movie.MovieService
 
-class MovieRepositoryImp(private val theMovieDatabaseService: TheMovieDatabaseApiService) :
+class MovieRepositoryImp(private val movieService: MovieService) :
     MovieRepository {
 
     override fun getMovie(id: Int): LiveData<Movie> {
@@ -19,7 +19,7 @@ class MovieRepositoryImp(private val theMovieDatabaseService: TheMovieDatabaseAp
     }
 
     override fun getMovies(page: Int): List<Movie> {
-        return mapMovies(theMovieDatabaseService.getPopularMovies(page).execute().body() as RemotePopularMovies)
+        return mapMovies(movieService.getPopularMovies(page).execute().body() as RemotePopularMovies)
     }
 
     private fun mapMovies(remotePopularMovies: RemotePopularMovies): List<Movie> {

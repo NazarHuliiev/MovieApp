@@ -3,7 +3,7 @@ package com.nazarhuliiev.movieapp.di
 import com.nazarhuliiev.movieapp.BuildConfig
 import com.nazarhuliiev.movieapp.repository.movie.MovieRepository
 import com.nazarhuliiev.movieapp.repository.movie.MovieRepositoryImp
-import com.nazarhuliiev.movieapp.service.movie.TheMovieDatabaseApiService
+import com.nazarhuliiev.movieapp.service.movie.MovieService
 import com.nazarhuliiev.movieapp.service.gson.GsonFactory
 import com.nazarhuliiev.movieapp.service.httpclient.HttpClientFactory
 import com.nazarhuliiev.movieapp.ui.movieslist.MovieListViewModel
@@ -24,7 +24,7 @@ val appModule = module {
             .build()
     }
 
-    single { get<Retrofit>().create(TheMovieDatabaseApiService::class.java) }
+    single { get<Retrofit>().create(MovieService::class.java) }
 
     single<MovieRepository> {
         MovieRepositoryImp(

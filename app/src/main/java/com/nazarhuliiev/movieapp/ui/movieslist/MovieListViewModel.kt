@@ -12,7 +12,7 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : ViewMod
 
     var movies: LiveData<PagedList<Movie>>
     init {
-        val moviesDataSourceFactory = PopularMoviesDataSource.Factory(movieRepository)
+        val factory = PopularMoviesDataSource.Factory(movieRepository)
 
         val config = PagedList.Config.Builder()
             .setPageSize(20)
@@ -20,6 +20,6 @@ class MovieListViewModel(private val movieRepository: MovieRepository) : ViewMod
             .setEnablePlaceholders(false)
             .build()
 
-        movies = LivePagedListBuilder<Int, Movie>(moviesDataSourceFactory, config).build()
+        movies = LivePagedListBuilder<Int, Movie>(factory, config).build()
     }
 }
