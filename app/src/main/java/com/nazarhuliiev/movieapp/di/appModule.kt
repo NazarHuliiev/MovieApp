@@ -13,19 +13,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module {
-
-    single { HttpClientFactory.create() }
-
-    single {
-        Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(GsonFactory.create()))
-            .baseUrl(BuildConfig.API_URL)
-            .client(get())
-            .build()
-    }
-
-    single { get<Retrofit>().create(MovieService::class.java) }
-
     single<MovieRepository> {
         MovieRepositoryImp(
             get()
