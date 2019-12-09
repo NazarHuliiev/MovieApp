@@ -2,7 +2,7 @@ package com.nazarhuliiev.movieapp
 
 import android.app.Application
 import com.nazarhuliiev.movieapp.di.appModule
-import com.nazarhuliiev.movieapp.di.refitModule
+import com.nazarhuliiev.movieapp.di.retrofitModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -15,7 +15,7 @@ class MyApplication: Application() {
         startKoin{
             androidLogger()
             androidContext(this@MyApplication)
-            modules(listOf(refitModule, appModule))
+            modules(listOf(retrofitModule, appModule))
         }
     }
 }
