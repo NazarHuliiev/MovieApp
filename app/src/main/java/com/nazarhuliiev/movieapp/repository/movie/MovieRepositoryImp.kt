@@ -2,11 +2,14 @@ package com.nazarhuliiev.movieapp.repository.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.nazarhuliiev.movieapp.db.MoviesDatabase
 import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovies
 import com.nazarhuliiev.movieapp.service.movie.MovieService
 
-class MovieRepositoryImp(private val movieService: MovieService) :
-    MovieRepository {
+class MovieRepositoryImp(
+    private val movieService: MovieService,
+    private val moviesDatabase: MoviesDatabase
+): MovieRepository {
 
     override fun getMovie(id: Int): LiveData<Movie> {
         return MutableLiveData(
