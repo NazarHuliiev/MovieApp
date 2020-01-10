@@ -2,41 +2,52 @@ package com.nazarhuliiev.movieapp.repository.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import com.nazarhuliiev.movieapp.datasource.PopularMoviesDataSource
 import com.nazarhuliiev.movieapp.db.MoviesDatabase
+import com.nazarhuliiev.movieapp.db.entity.movie.PopularMovieEntity
+import com.nazarhuliiev.movieapp.helpers.toLocal
 import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovies
 import com.nazarhuliiev.movieapp.service.movie.MovieService
+import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovie
 
 class MovieRepositoryImp(
     private val movieService: MovieService,
-    private val moviesDatabase: MoviesDatabase
+    moviesDatabase: MoviesDatabase
 ): MovieRepository {
 
-    override fun getMovie(id: Int): LiveData<Movie> {
-        return MutableLiveData(
-            Movie(
-                "El Camino",
-                2019,
-                7.6f
-            )
-        )
-    }
+    private val popularMoviesDao = moviesDatabase.popularMoviesDao()
 
-    override fun getPopularMovies(page: Int): List<Movie> {
-        return mapMovies(movieService.getPopularMovies(page).execute().body() as RemotePopularMovies)
-    }
-
-    private fun mapMovies(remotePopularMovies: RemotePopularMovies): List<Movie> {
-        val list = mutableListOf<Movie>()
-
-        for (remoteMovie in remotePopularMovies.results) {
-            val m = Movie(
-                remoteMovie.title,
-                remoteMovie.releaseDate.year,
-                remoteMovie.voteAverage.toFloat()
-            )
-            list.add(m)
+    override fun observePagedPopularMovies(connectivityAvailable: Boolean)
+            : LiveData<PagedList<Movie>> {
+        if(connectivityAvailable) {
+            return observeRemotePagedPopularMovies()
         }
 
-        return list
+        return observeLocalPagedPopularMovies()
+    }
+
+    private fun observeLocalPagedPopularMovies(): LiveData<PagedList<Movie>> {
+         val dataSourceFactory = popularMoviesDao.getAllMovies().map{ it.toLocal()}
+
+        return LivePagedListBuilder(
+            dataSourceFactory,
+            PopularMoviesDataSource.pagedListConfig())
+            .build()
+    }
+
+    private fun observeRemotePagedPopularMovies(): LiveData<PagedList<Movie>> {
+        val factory = PopularMoviesDataSource.Factory(
+            popularMoviesDao
+        ) { page ->
+            (movieService.getPopularMovies(page).execute().body() as RemotePopularMovies).results
+        }
+
+        return LivePagedListBuilder<Int, Movie>(
+            factory,
+            PopularMoviesDataSource.pagedListConfig())
+            .build()
     }
 }

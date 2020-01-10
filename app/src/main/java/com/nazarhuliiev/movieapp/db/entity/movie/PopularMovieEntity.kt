@@ -11,6 +11,6 @@ data class PopularMovieEntity(
     val overview: String,
     val posterPath: String,
     val releaseDate: LocalDate,
-    val genreIds : List<Int>,
-    val voteAverage : Double,
-    val page: Int)
+    val genreIds: List<Int>,
+    val voteAverage: Double,
+    val popularity: Double)

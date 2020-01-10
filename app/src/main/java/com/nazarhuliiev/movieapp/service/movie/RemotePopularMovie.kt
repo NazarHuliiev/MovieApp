@@ -10,5 +10,6 @@ data class RemotePopularMovie (
     @SerializedName("genre_ids") val genreIds : List<Int>,
     @SerializedName("id") val id : Int,
     @SerializedName("title") val title : String,
-    @SerializedName("vote_average") val voteAverage : Double
+    @SerializedName("vote_average") val voteAverage : Double,
+    @SerializedName("popularity") val popularity: Double
 )

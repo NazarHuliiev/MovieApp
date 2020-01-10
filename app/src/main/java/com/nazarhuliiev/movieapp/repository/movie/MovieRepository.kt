@@ -1,10 +1,8 @@
 package com.nazarhuliiev.movieapp.repository.movie
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 
 interface MovieRepository {
-
-    fun getMovie(id: Int) : LiveData<Movie>
-
-    fun getPopularMovies(page: Int) : List<Movie>
+    fun observePagedPopularMovies(connectivityAvailable: Boolean): LiveData<PagedList<Movie>>
 }

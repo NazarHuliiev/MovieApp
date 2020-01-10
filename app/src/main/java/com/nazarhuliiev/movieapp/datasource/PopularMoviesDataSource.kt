@@ -2,22 +2,29 @@ package com.nazarhuliiev.movieapp.datasource
 
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagedList
+import com.nazarhuliiev.movieapp.db.dao.PopularMoviesDao
+import com.nazarhuliiev.movieapp.helpers.remoteToMovie
+import com.nazarhuliiev.movieapp.helpers.toLocal
 import com.nazarhuliiev.movieapp.repository.movie.Movie
 import com.nazarhuliiev.movieapp.repository.movie.MovieRepository
+import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovie
 
 class PopularMoviesDataSource private constructor(
-    private val movieRepository: MovieRepository)
+    private val popularMoviesDao: PopularMoviesDao,
+    private val fetchPopularMovies: (page: Int) ->List<RemotePopularMovie>)
     : PageKeyedDataSource<Int, Movie>() {
+
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Movie>
     ) {
-        val page = movieRepository.getPopularMovies(1)
+        val page = fetchData(1)
         callback.onResult(page, 1, 2)
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Movie>) {
-        val page = movieRepository.getPopularMovies(params.key)
+        val page = fetchData(params.key)
         callback.onResult(page, params.key + 1)
     }
 
@@ -25,10 +32,26 @@ class PopularMoviesDataSource private constructor(
         // this should be empty because there is no need to load data before
     }
 
+    private fun fetchData(page: Int): List<Movie>{
+        val remotePopularMovies = fetchPopularMovies(page)
+        popularMoviesDao.insertMovies(remotePopularMovies.toLocal())
+
+        return remotePopularMovies.remoteToMovie()
+    }
+
     class Factory(
-        private val movieRepository: MovieRepository)
+        private val popularMoviesDao: PopularMoviesDao,
+        private val fetchPopularMovies: (page: Int) ->List<RemotePopularMovie>)
         : DataSource.Factory<Int, Movie>() {
         override fun create() =
-            PopularMoviesDataSource(movieRepository)
+            PopularMoviesDataSource(popularMoviesDao, fetchPopularMovies)
+    }
+
+    companion object {
+        fun pagedListConfig() = PagedList.Config.Builder()
+            .setPageSize(20)
+            .setInitialLoadSizeHint(20)
+            .setEnablePlaceholders(false)
+            .build()
     }
 }
