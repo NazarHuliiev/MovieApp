@@ -40,7 +40,7 @@ fun List<RemotePopularMovie>.toLocal(): List<PopularMovieEntity> {
     return localMovies
 }
 
-fun PopularMovieEntity.toLocal(): Movie{
+fun PopularMovieEntity.toMovie(): Movie{
     return Movie(
         this.title,
         this.releaseDate.year,

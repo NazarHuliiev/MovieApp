@@ -1,17 +1,13 @@
 package com.nazarhuliiev.movieapp.repository.movie
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.nazarhuliiev.movieapp.datasource.PopularMoviesDataSource
 import com.nazarhuliiev.movieapp.db.MoviesDatabase
-import com.nazarhuliiev.movieapp.db.entity.movie.PopularMovieEntity
-import com.nazarhuliiev.movieapp.helpers.toLocal
-import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovies
+import com.nazarhuliiev.movieapp.helpers.toMovie
 import com.nazarhuliiev.movieapp.service.movie.MovieService
-import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovie
+import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovies
 
 class MovieRepositoryImp(
     private val movieService: MovieService,
@@ -30,7 +26,7 @@ class MovieRepositoryImp(
     }
 
     private fun observeLocalPagedPopularMovies(): LiveData<PagedList<Movie>> {
-         val dataSourceFactory = popularMoviesDao.getAllMovies().map{ it.toLocal()}
+         val dataSourceFactory = popularMoviesDao.getAllMovies().map{ it.toMovie()}
 
         return LivePagedListBuilder(
             dataSourceFactory,
