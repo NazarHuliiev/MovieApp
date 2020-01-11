@@ -3,15 +3,13 @@ package com.nazarhuliiev.movieapp.datasource
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
-import com.nazarhuliiev.movieapp.db.dao.PopularMoviesDao
 import com.nazarhuliiev.movieapp.helpers.remoteToMovie
-import com.nazarhuliiev.movieapp.helpers.toLocal
 import com.nazarhuliiev.movieapp.repository.movie.Movie
 import com.nazarhuliiev.movieapp.repository.movie.MovieRepository
 import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovie
 
 class PopularMoviesDataSource private constructor(
-    private val popularMoviesDao: PopularMoviesDao,
+    private val repository: MovieRepository,
     private val fetchPopularMovies: (page: Int) ->List<RemotePopularMovie>)
     : PageKeyedDataSource<Int, Movie>() {
 
@@ -34,17 +32,17 @@ class PopularMoviesDataSource private constructor(
 
     private fun fetchData(page: Int): List<Movie>{
         val remotePopularMovies = fetchPopularMovies(page)
-        popularMoviesDao.insertMovies(remotePopularMovies.toLocal())
+        repository.saveMovies(remotePopularMovies)
 
         return remotePopularMovies.remoteToMovie()
     }
 
     class Factory(
-        private val popularMoviesDao: PopularMoviesDao,
+        private val repository: MovieRepository,
         private val fetchPopularMovies: (page: Int) ->List<RemotePopularMovie>)
         : DataSource.Factory<Int, Movie>() {
         override fun create() =
-            PopularMoviesDataSource(popularMoviesDao, fetchPopularMovies)
+            PopularMoviesDataSource(repository, fetchPopularMovies)
     }
 
     companion object {

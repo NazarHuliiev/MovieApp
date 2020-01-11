@@ -19,7 +19,6 @@ fun List<RemotePopularMovie>.remoteToMovie(): List<Movie>{
     return movies
 }
 
-
 fun List<RemotePopularMovie>.toLocal(): List<PopularMovieEntity> {
     val localMovies = mutableListOf<PopularMovieEntity>()
 

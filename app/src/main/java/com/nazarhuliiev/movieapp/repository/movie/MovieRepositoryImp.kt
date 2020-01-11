@@ -5,8 +5,10 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.nazarhuliiev.movieapp.datasource.PopularMoviesDataSource
 import com.nazarhuliiev.movieapp.db.MoviesDatabase
+import com.nazarhuliiev.movieapp.helpers.toLocal
 import com.nazarhuliiev.movieapp.helpers.toMovie
 import com.nazarhuliiev.movieapp.service.movie.MovieService
+import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovie
 import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovies
 
 class MovieRepositoryImp(
@@ -25,6 +27,10 @@ class MovieRepositoryImp(
         return observeLocalPagedPopularMovies()
     }
 
+    override fun saveMovies(remoteMovies: List<RemotePopularMovie>) {
+        popularMoviesDao.insertMovies(remoteMovies.toLocal())
+    }
+
     private fun observeLocalPagedPopularMovies(): LiveData<PagedList<Movie>> {
          val dataSourceFactory = popularMoviesDao.getAllMovies().map{ it.toMovie()}
 
@@ -36,7 +42,7 @@ class MovieRepositoryImp(
 
     private fun observeRemotePagedPopularMovies(): LiveData<PagedList<Movie>> {
         val factory = PopularMoviesDataSource.Factory(
-            popularMoviesDao
+            this
         ) { page ->
             (movieService.getPopularMovies(page).execute().body() as RemotePopularMovies).results
         }
