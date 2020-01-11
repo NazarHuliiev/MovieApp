@@ -15,7 +15,7 @@ val appModule = module {
         )
     }
 
-    single { getDatabase(get()) }
+    single { getDatabase(get()).popularMoviesDao() }
 
     viewModel { MovieListViewModel(get()) }
 }
