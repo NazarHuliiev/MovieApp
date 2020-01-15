@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nazarhuliiev.movieapp.R
-import com.nazarhuliiev.movieapp.ui.util.ConnectivityUtil
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -16,8 +15,6 @@ class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        viewModel.networkAvailable = ConnectivityUtil.isConnected(context!!)
 
         movies_list.layoutManager = GridLayoutManager(context, 2)
         movies_list.adapter = adapter
