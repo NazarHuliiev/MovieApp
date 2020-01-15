@@ -13,4 +13,6 @@ data class PopularMovieEntity(
     val releaseDate: LocalDate,
     val genreIds: List<Int>,
     val voteAverage: Double,
-    val popularity: Double)
+    val popularity: Double,
+    var page: Int = -1
+)

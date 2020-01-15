@@ -10,7 +10,7 @@ import com.nazarhuliiev.movieapp.db.converter.LocalDateConverter
 import com.nazarhuliiev.movieapp.db.dao.PopularMoviesDao
 import com.nazarhuliiev.movieapp.db.entity.movie.PopularMovieEntity
 
-@Database(entities = [PopularMovieEntity::class], version = 1)
+@Database(entities = [PopularMovieEntity::class], version = 1, exportSchema = false)
 @TypeConverters(GeneresConverter::class, LocalDateConverter::class)
 abstract class MoviesDatabase: RoomDatabase() {
     abstract fun popularMoviesDao(): PopularMoviesDao

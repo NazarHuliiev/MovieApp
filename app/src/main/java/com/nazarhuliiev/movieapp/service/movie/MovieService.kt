@@ -7,5 +7,5 @@ import retrofit2.http.Query
 interface MovieService {
 
     @GET("movie/popular")
-    fun getPopularMovies(@Query("page") page: Int): Call<RemotePopularMovies>
+    suspend fun getPopularMovies(@Query("page") page: Int): RemotePopularMovies
 }

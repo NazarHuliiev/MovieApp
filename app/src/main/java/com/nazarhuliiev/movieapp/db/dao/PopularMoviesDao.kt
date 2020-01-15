@@ -13,7 +13,7 @@ interface PopularMoviesDao {
     @Insert(onConflict =  OnConflictStrategy.REPLACE)
     fun insertMovies(list: List<PopularMovieEntity>)
 
-    @Query("SELECT * FROM popular_movies ORDER BY popularity DESC")
+    @Query("SELECT * FROM popular_movies ORDER BY page ASC")
     fun getAllMovies(): DataSource.Factory<Int, PopularMovieEntity>
 
     @Query("SELECT * FROM popular_movies WHERE id = :id")
