@@ -20,7 +20,7 @@ class MoviesRecyclerAdapter: PagedListAdapter<Movie, MovieViewHolder>(DiffCallba
 
     class DiffCallback: DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
