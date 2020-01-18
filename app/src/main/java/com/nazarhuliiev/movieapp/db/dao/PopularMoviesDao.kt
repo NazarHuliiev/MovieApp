@@ -1,5 +1,6 @@
 package com.nazarhuliiev.movieapp.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -17,7 +18,7 @@ interface PopularMoviesDao {
     fun getAllMovies(): DataSource.Factory<Int, PopularMovieEntity>
 
     @Query("SELECT * FROM popular_movies WHERE id = :id")
-    fun getMovieById(id: Int): PopularMovieEntity
+    fun getMovieById(id: Int): LiveData<PopularMovieEntity>
 
     @Query("DELETE FROM popular_movies")
     fun deleteMovies()

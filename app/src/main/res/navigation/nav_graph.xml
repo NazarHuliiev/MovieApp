@@ -21,6 +21,10 @@
         android:label="MovieListFragment" >
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailsFragment"
-            app:destination="@+id/movieDetailsFragment" />
+            app:destination="@id/movieDetailsFragment" >
+            <argument
+                android:name="movieId"
+                android:defaultValue="-1" />
+        </action>
     </fragment>
 </navigation>

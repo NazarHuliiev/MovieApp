@@ -10,5 +10,5 @@ interface MovieRepository {
 
     fun saveMovies(page: Int, remoteMovies: List<RemotePopularMovie>)
 
-    fun getMoviie(movieId: Int): Movie
+    fun getMovie(movieId: Int): LiveData<Movie>
 }

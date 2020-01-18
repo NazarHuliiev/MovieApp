@@ -27,7 +27,9 @@ class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
         adapter.itemClickEvent = { movie ->
             run {
                 val action = MovieListFragmentDirections
-                    .actionMovieListFragmentToMovieDetailsFragment(movie.id)
+                    .actionMovieListFragmentToMovieDetailsFragment()
+                    .setMovieId(movie.id)
+
 
                 view?.findNavController()?.navigate(action)
             }

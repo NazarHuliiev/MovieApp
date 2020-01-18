@@ -29,6 +29,7 @@ fun PopularMovieEntity.toMovie(): Movie{
     return Movie(
         this.id,
         this.title,
+        this.overview,
         this.releaseDate.year,
         this.voteAverage.toFloat(),
         this.page,

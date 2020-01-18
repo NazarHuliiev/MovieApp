@@ -7,6 +7,6 @@ class MovieDetailsViewModel(private val movieRepository: MovieRepository): ViewM
     var movieId: Int? = null
 
     val movie by lazy {
-        movieRepository.getMoviie(movieId ?: -1)
+        movieRepository.getMovie(movieId ?: -1)
     }
 }

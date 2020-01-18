@@ -30,5 +30,5 @@ val appModule = module {
     single { get<MoviesDatabase>().popularMoviesDao() }
 
     viewModel { MovieListViewModel(get()) }
-    viewModel { MovieDetailsViewModel() }
+    viewModel { MovieDetailsViewModel(get()) }
 }
