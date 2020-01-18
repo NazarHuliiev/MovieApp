@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.nazarhuliiev.movieapp.repository.movie.Movie
 import java.lang.RuntimeException
 
@@ -14,8 +13,16 @@ class MoviesRecyclerAdapter: PagedListAdapter<Movie, MovieViewHolder>(DiffCallba
         return MovieViewHolder(inflater, parent)
     }
 
+    lateinit var itemClickEvent: (movie: Movie) -> Unit
+
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindData(getItem(position) ?: throw RuntimeException("This adapter does not support placeholders"))
+        val item = getItem(position) ?: throw RuntimeException("This adapter does not support placeholders")
+
+        holder.itemView.setOnClickListener {
+            itemClickEvent?.invoke(item)
+        }
+
+        holder.bindData(item)
     }
 
     class DiffCallback: DiffUtil.ItemCallback<Movie>() {

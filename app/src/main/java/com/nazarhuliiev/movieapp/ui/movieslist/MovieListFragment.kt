@@ -3,6 +3,7 @@ package com.nazarhuliiev.movieapp.ui.movieslist
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nazarhuliiev.movieapp.R
 import kotlinx.android.synthetic.main.fragment_movie_list.*
@@ -22,5 +23,14 @@ class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
         viewModel.movies.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
+
+        adapter.itemClickEvent = { movie ->
+            run {
+                val action = MovieListFragmentDirections
+                    .actionMovieListFragmentToMovieDetailsFragment(movie.id)
+
+                view?.findNavController()?.navigate(action)
+            }
+        }
     }
 }

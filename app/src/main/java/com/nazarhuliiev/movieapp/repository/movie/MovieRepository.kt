@@ -9,4 +9,6 @@ interface MovieRepository {
     fun observePagedPopularMovies(scope: CoroutineScope): LiveData<PagedList<Movie>>
 
     fun saveMovies(page: Int, remoteMovies: List<RemotePopularMovie>)
+
+    fun getMoviie(movieId: Int): Movie
 }

@@ -10,7 +10,9 @@ import com.nazarhuliiev.movieapp.helpers.UrlHelper
 import com.nazarhuliiev.movieapp.repository.movie.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieViewHolder(inflater: LayoutInflater, val parent: ViewGroup)
+class MovieViewHolder(
+    inflater: LayoutInflater,
+    val parent: ViewGroup)
     : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_movie, parent, false)) {
 
     fun bindData (movie: Movie) {

@@ -38,4 +38,8 @@ class MovieRepositoryImp(
     override fun saveMovies(page: Int, remoteMovies: List<RemotePopularMovie>) {
         popularMoviesDao.insertMovies(remoteMovies.toLocal(page))
     }
+
+    override fun getMoviie(movieId: Int): Movie {
+        return popularMoviesDao.getMovieById(movieId).toMovie()
+    }
 }
