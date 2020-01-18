@@ -4,6 +4,8 @@ import androidx.room.Room
 import com.nazarhuliiev.movieapp.db.MoviesDatabase
 import com.nazarhuliiev.movieapp.repository.movie.MovieRepository
 import com.nazarhuliiev.movieapp.repository.movie.MovieRepositoryImp
+import com.nazarhuliiev.movieapp.ui.moviedetails.MovieDetailsFragment
+import com.nazarhuliiev.movieapp.ui.moviedetails.MovieDetailsViewModel
 import com.nazarhuliiev.movieapp.ui.movieslist.MovieListViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
@@ -28,4 +30,5 @@ val appModule = module {
     single { get<MoviesDatabase>().popularMoviesDao() }
 
     viewModel { MovieListViewModel(get()) }
+    viewModel { MovieDetailsViewModel() }
 }
