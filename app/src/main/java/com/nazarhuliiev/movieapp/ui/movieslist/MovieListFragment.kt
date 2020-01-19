@@ -17,7 +17,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
 
     private val viewModel by viewModel<MovieListViewModel>()
-    private  val adapter = MoviesRecyclerAdapter()
+    private  val moviesAdapter = MoviesRecyclerAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,13 +33,22 @@ class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
         super.onActivityCreated(savedInstanceState)
 
         movies_list.layoutManager = GridLayoutManager(context, 2)
-        movies_list.adapter = adapter
+
+        movies_list.apply {
+            adapter = moviesAdapter
+            postponeEnterTransition()
+            viewTreeObserver
+                .addOnPreDrawListener {
+                    startPostponedEnterTransition()
+                    true
+                }
+        }
 
         viewModel.movies.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            moviesAdapter.submitList(it)
         })
 
-        adapter.itemClickEvent = { imageView, data ->
+        moviesAdapter.itemClickEvent = { imageView, data ->
             run {
                 val action = MovieListFragmentDirections
                     .actionMovieListFragmentToMovieDetailsFragment(data.posterPath)
