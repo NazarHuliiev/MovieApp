@@ -2,10 +2,11 @@ package com.nazarhuliiev.movieapp.ui.movieslist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.nazarhuliiev.movieapp.repository.movie.Movie
-import java.lang.RuntimeException
+import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MoviesRecyclerAdapter: PagedListAdapter<Movie, MovieViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -13,13 +14,13 @@ class MoviesRecyclerAdapter: PagedListAdapter<Movie, MovieViewHolder>(DiffCallba
         return MovieViewHolder(inflater, parent)
     }
 
-    lateinit var itemClickEvent: (movie: Movie) -> Unit
+    lateinit var itemClickEvent: (imageView: ImageView, data: Movie) -> Unit
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val item = getItem(position) ?: throw RuntimeException("This adapter does not support placeholders")
 
         holder.itemView.setOnClickListener {
-            itemClickEvent?.invoke(item)
+            itemClickEvent?.invoke(holder.itemView.movie_image, item)
         }
 
         holder.bindData(item)

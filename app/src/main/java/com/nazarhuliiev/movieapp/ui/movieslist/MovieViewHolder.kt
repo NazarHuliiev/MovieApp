@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieViewHolder(
     inflater: LayoutInflater,
-    val parent: ViewGroup)
+    private val parent: ViewGroup)
     : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_movie, parent, false)) {
 
     fun bindData (movie: Movie) {
@@ -25,11 +25,14 @@ class MovieViewHolder(
         circularProgressDrawable.centerRadius = 80f
         circularProgressDrawable.start()
 
-        Glide
-            .with(parent)
-            .load(UrlHelper.getImagePath(movie.posterPath))
-            .centerCrop()
-            .placeholder(circularProgressDrawable)
-            .into(itemView.movie_image)
+        itemView.movie_image.also {
+            it.transitionName = movie.posterPath
+
+            Glide
+                .with(parent)
+                .load(movie.posterPath)
+                .placeholder(circularProgressDrawable)
+                .into(it)
+        }
     }
 }

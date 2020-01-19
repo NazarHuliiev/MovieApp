@@ -33,6 +33,6 @@ fun PopularMovieEntity.toMovie(): Movie{
         this.releaseDate.year,
         this.voteAverage.toFloat(),
         this.page,
-        this.posterPath
+        UrlHelper.getImagePath(this.posterPath)
     )
 }

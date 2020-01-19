@@ -14,6 +14,9 @@
             android:name="movieId"
             app:argType="integer"
             android:defaultValue="-1" />
+        <argument
+            android:name="posterPath"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/movieListFragment"
@@ -21,7 +24,7 @@
         android:label="MovieListFragment" >
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" >
+            app:destination="@id/movieDetailsFragment">
             <argument
                 android:name="movieId"
                 android:defaultValue="-1" />
