@@ -1,6 +1,7 @@
 package com.nazarhuliiev.movieapp.repository.movie
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.nazarhuliiev.movieapp.datasource.PopularMoviesBoundaryCallback
@@ -37,5 +38,9 @@ class MovieRepositoryImp(
 
     override fun saveMovies(page: Int, remoteMovies: List<RemotePopularMovie>) {
         popularMoviesDao.insertMovies(remoteMovies.toLocal(page))
+    }
+
+    override fun getMovie(movieId: Int): LiveData<Movie> {
+        return popularMoviesDao.getMovieById(movieId).map { it.toMovie() }
     }
 }
