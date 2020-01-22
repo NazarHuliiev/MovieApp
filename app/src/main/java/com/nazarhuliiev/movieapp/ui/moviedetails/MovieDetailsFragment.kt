@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
-import com.bumptech.glide.Glide
+import com.nazarhuliiev.movieapp.GlideApp
 import com.nazarhuliiev.movieapp.R
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -35,15 +35,7 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details) {
 
         viewModel.movieId = args.movieId
 
-        val imageUrl = args.posterPath
-        movie_details_image.also {
-        it.transitionName = imageUrl
-
-            Glide
-                .with(context!!)
-                .load(imageUrl)
-                .into(it)
-        }
+        loadDetailsImage()
 
         viewModel.movie.observe(viewLifecycleOwner, Observer {
             movie_details_title.text = it.name
@@ -51,6 +43,18 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details) {
             movie_details_year.text = it.year.toString()
             movie_details_overview.text = it.overview
         })
+    }
+
+    private fun loadDetailsImage() {
+        val imageUrl = args.posterPath
+        movie_details_image.also {
+            it.transitionName = imageUrl
+
+            GlideApp
+                .with(context!!)
+                .load(imageUrl)
+                .into(it)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
