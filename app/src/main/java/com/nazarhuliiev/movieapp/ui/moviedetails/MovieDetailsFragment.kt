@@ -30,6 +30,7 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details) {
         super.onViewCreated(view, savedInstanceState)
 
         val activity = activity as AppCompatActivity
+        activity.setSupportActionBar(toolbar)
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         viewModel.movieId = args.movieId

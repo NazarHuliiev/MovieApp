@@ -19,16 +19,6 @@ class MovieListFragment: Fragment(R.layout.fragment_movie_list) {
     private val viewModel by viewModel<MovieListViewModel>()
     private  val moviesAdapter = MoviesRecyclerAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val activity = activity as AppCompatActivity
-        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
