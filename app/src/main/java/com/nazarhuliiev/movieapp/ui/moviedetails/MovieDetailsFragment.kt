@@ -43,6 +43,11 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details) {
             movie_details_year.text = it.year.toString()
             movie_details_overview.text = it.overview
         })
+
+
+        movie_details_rating_view.setOnClickListener {
+            movie_details_rating_view.setRating(5)
+        }
     }
 
     private fun loadDetailsImage() {
