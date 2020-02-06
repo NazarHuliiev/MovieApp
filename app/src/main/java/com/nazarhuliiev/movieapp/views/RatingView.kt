@@ -6,14 +6,13 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import com.nazarhuliiev.movieapp.views.extensions.dpToPx
+import com.nazarhuliiev.movieapp.R
 
 class RatingView  @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-
     private val backgroundPaint: Paint = Paint()
     private val borderPaint: Paint = Paint()
     private val ratingPaint: Paint = Paint()
@@ -24,7 +23,7 @@ class RatingView  @JvmOverloads constructor(
     private val maxRating = 10
     var currentRating = 0
 
-    private val animationBaseDurationMs: Long = 3000
+    private val animatioDurationMs: Long = 3000
 
     init {
         backgroundPaint.isAntiAlias = true
@@ -34,44 +33,67 @@ class RatingView  @JvmOverloads constructor(
         borderPaint.isAntiAlias = true
         borderPaint.color = Color.rgb(92,107,192)
         borderPaint.style = Paint.Style.STROKE
-        borderPaint.strokeWidth = 1.dpToPx()
+        borderPaint.strokeWidth = context.resources.getDimensionPixelSize(R.dimen.rating_view_border_width).toFloat()
 
         ratingPaint.isAntiAlias = true
-        ratingPaint.color = Color.rgb(41,121,255)
+        ratingPaint.color = Color.rgb(105,240,174)
         ratingPaint.style = Paint.Style.STROKE
-        ratingPaint.strokeWidth = 12.dpToPx()
+        ratingPaint.strokeWidth = context.resources.getDimensionPixelSize(R.dimen.rating_view_strip_width).toFloat()
 
         textPaint.color = Color.rgb(41,121,255)
-        textPaint.textSize = 25.dpToPx()
+        textPaint.textSize = context.resources.getDimensionPixelSize(R.dimen.rating_view_text_size).toFloat()
         textPaint.textAlign = Paint.Align.CENTER
+    }
+
+    fun setRating(rating: Int) {
+        arcProportion = rating * 0.1f
+        val currentRatingProportion = currentRating * 0.1f
+
+        ValueAnimator.ofFloat(currentRatingProportion, arcProportion).apply {
+            interpolator = DecelerateInterpolator()
+            duration = animatioDurationMs
+            addUpdateListener { animator ->
+                this@RatingView.arcProportion = animator.animatedValue as Float
+                this@RatingView.invalidate()
+            }
+            start()
+        }
+        currentRating = rating
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        canvas.drawARGB(80,102,204,255)
-
         if (rectangle == null) {
-            rectangle = RectF(0f, 0f, width.toFloat(), height.toFloat() * 2)
+            rectangle = RectF(
+                0f + borderPaint.strokeWidth,
+                0f + borderPaint.strokeWidth,
+                width.toFloat() - borderPaint.strokeWidth,
+                height.toFloat() * 2 - borderPaint.strokeWidth)
         }
 
+        drawCarcass(canvas)
+        drawRatingStrip(canvas)
+        drawText(canvas)
+    }
+
+    private fun drawCarcass(canvas: Canvas) {
         // Draw background half circle
         canvas.drawArc(rectangle!!, 180f, 180f, false, backgroundPaint)
 
         // border
-        val externalMargin = borderPaint.strokeWidth
         canvas.drawArc(
-            rectangle!!.left + externalMargin,
-            rectangle!!.top + externalMargin,
-            rectangle!!.right - externalMargin,
-            rectangle!!.bottom - externalMargin * 2,
+            rectangle!!.left,
+            rectangle!!.top,
+            rectangle!!.right,
+            rectangle!!.bottom,
             180f,
             180f,
             true,
             borderPaint)
 
         // inner border
-        val innerMargin = borderPaint.strokeWidth * 2 + ratingPaint.strokeWidth
+        val innerMargin = borderPaint.strokeWidth + ratingPaint.strokeWidth
         canvas.drawArc(
             rectangle!!.left + innerMargin,
             rectangle!!.top + innerMargin,
@@ -81,9 +103,11 @@ class RatingView  @JvmOverloads constructor(
             180f,
             false,
             borderPaint)
+    }
 
+    private fun drawRatingStrip(canvas: Canvas) {
         // Draw rating half circle
-        var ratingMargin = 7.dpToPx() //????
+        var ratingMargin = ratingPaint.strokeWidth / 2 + borderPaint.strokeWidth / 2
         canvas.drawArc(
             rectangle!!.left + ratingMargin,
             rectangle!!.top + ratingMargin,
@@ -93,22 +117,9 @@ class RatingView  @JvmOverloads constructor(
             arcProportion * 180f,
             false,
             ratingPaint)
-
-        canvas.drawText("$currentRating/$maxRating", width / 2f, height / 2f,textPaint)
     }
 
-    fun setRating(rating: Int) {
-        currentRating = rating
-        arcProportion = rating * 0.1f
-
-        ValueAnimator.ofFloat(0f, arcProportion).apply {
-            interpolator = DecelerateInterpolator()
-            duration = animationBaseDurationMs
-            addUpdateListener { animator ->
-                this@RatingView.arcProportion = animator.animatedValue as Float
-                this@RatingView.invalidate()
-            }
-            start()
-        }
+    private fun drawText(canvas: Canvas) {
+        canvas.drawText("$currentRating/$maxRating", width / 2f, height / 2f,textPaint)
     }
 }

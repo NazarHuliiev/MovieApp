@@ -18,6 +18,7 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details) {
 
     private val args: MovieDetailsFragmentArgs by navArgs()
     private val viewModel by viewModel<MovieDetailsViewModel>()
+    private var rating = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +47,12 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details) {
 
 
         movie_details_rating_view.setOnClickListener {
-            movie_details_rating_view.setRating(5)
+
+            if (rating > 10) {
+                rating = 0
+            }
+
+            movie_details_rating_view.setRating(rating++)
         }
     }
 
