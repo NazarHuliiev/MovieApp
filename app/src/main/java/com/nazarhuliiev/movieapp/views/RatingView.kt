@@ -68,8 +68,8 @@ class RatingView  @JvmOverloads constructor(
         super.onDraw(canvas)
 
         rectangle.set(
-            0f + borderPaint.strokeWidth,
-            0f + borderPaint.strokeWidth,
+            0 + borderPaint.strokeWidth,
+            0 + borderPaint.strokeWidth,
             width.toFloat() - borderPaint.strokeWidth,
             height.toFloat() * 2 - borderPaint.strokeWidth)
 
