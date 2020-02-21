@@ -39,9 +39,8 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details) {
 
         viewModel.movie.observe(viewLifecycleOwner, Observer {
             movie_details_title.text = it.name
-            movie_details_rating.text = it.rating.toString()
-            movie_details_year.text = it.year.toString()
             movie_details_overview.text = it.overview
+            movie_details_rating_view.setRating(it.rating)
         })
     }
 

@@ -2,4 +2,7 @@
 <resources>
     <dimen name="movie_loader_stroke_width">3dp</dimen>
     <dimen name="movie_loader_center_radius">24dp</dimen>
+    <dimen name="rating_view_border_width">2dp</dimen>
+    <dimen name="rating_view_strip_width">12dp</dimen>
+    <dimen name="rating_view_text_size">25sp</dimen>
 </resources>
