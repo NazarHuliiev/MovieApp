@@ -5,9 +5,9 @@
     <color name="colorAccent">#D81B60</color>
 
     <!-- Rating view -->
-    <color name="rating_view_background">#e6ee9c</color>
-    <color name="rating_view_border">#5c6bc0</color>
-    <color name="rating_view_rating">#69f0af</color>
-    <color name="rating_view_text_color">#2977ff</color>
+    <color name="rating_view_background">#ecf0f2</color>
+    <color name="rating_view_border">#2c054f</color>
+    <color name="rating_view_rating">#502d6f</color>
+    <color name="rating_view_text_color">#502d6f</color>
 
 </resources>

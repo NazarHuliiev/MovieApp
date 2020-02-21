@@ -38,6 +38,7 @@ class RatingView  @JvmOverloads constructor(
         color = ContextCompat.getColor(context, R.color.rating_view_text_color)
         textSize = context.resources.getDimensionPixelSize(R.dimen.rating_view_text_size).toFloat()
         textAlign = Paint.Align.CENTER
+        typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
     }
 
     private var rectangle = RectF()
@@ -120,6 +121,8 @@ class RatingView  @JvmOverloads constructor(
     }
 
     private fun drawText(canvas: Canvas) {
-        canvas.drawText("$currentRating/$maxRating", width / 2f, height / 2f,textPaint)
+        val ratingMargin = ratingPaint.strokeWidth / 2 + borderPaint.strokeWidth / 2
+        val yPosition = (height / 2f) + rectangle.top + ratingMargin + textPaint.textSize / 2
+        canvas.drawText("$currentRating/$maxRating", width / 2f, yPosition, textPaint)
     }
 }
