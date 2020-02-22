@@ -21,7 +21,6 @@ import com.nazarhuliiev.movieapp.GlideApp
 import com.nazarhuliiev.movieapp.R
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -32,7 +31,8 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details), OnMapRead
     private val viewModel by viewModel<MovieDetailsViewModel>()
     private lateinit var mapView: MapView
     private lateinit var geocoder: Geocoder
-    private lateinit var countryName: String
+    private val countries = arrayOf("USA", "Great britain", "China")
+    private var countryName: String = countries.random()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
