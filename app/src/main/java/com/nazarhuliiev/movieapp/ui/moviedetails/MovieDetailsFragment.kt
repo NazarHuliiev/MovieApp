@@ -1,5 +1,7 @@
 package com.nazarhuliiev.movieapp.ui.moviedetails
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,9 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.nazarhuliiev.movieapp.GlideApp
 import com.nazarhuliiev.movieapp.R
 import kotlinx.android.synthetic.main.fragment_movie_details.*
@@ -133,12 +133,38 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details), OnMapRead
                 val address = addresses[0]
                 val point = LatLng(address.latitude, address.longitude)
 
-                map!!.addMarker(MarkerOptions().position(point).title(address.featureName).snippet("Description" +
-                        "some"))
+                map!!.addMarker(MarkerOptions().position(point)
+                    .title(address.featureName)
+                    .snippet("Description some")
+                    .icon(bitmapDescriptorFromVector(R.drawable.ic_movie_filter)))
 
                 val cameraPosition = CameraPosition.Builder().target(point).zoom(5f).build()
                 map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
             }
         }
+    }
+
+    private fun bitmapDescriptorFromVector(
+        vectorResId: Int
+    ): BitmapDescriptor? {
+
+        val vectorDrawable =
+        context!!.getDrawable(vectorResId)
+
+        vectorDrawable!!.setBounds(
+            0,
+            0,
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight
+        )
+
+        val bitmap = Bitmap.createBitmap(
+            vectorDrawable.intrinsicWidth,
+            vectorDrawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        vectorDrawable.draw(canvas)
+        return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
 }
