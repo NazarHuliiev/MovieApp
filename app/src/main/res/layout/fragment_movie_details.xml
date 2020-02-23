@@ -80,7 +80,7 @@
                 app:layout_constraintTop_toBottomOf="@id/movie_details_title"
                 app:layout_constraintRight_toRightOf="parent" />
 
-            <com.google.android.gms.maps.MapView
+            <com.nazarhuliiev.movieapp.views.CustomMapView
                 android:id="@+id/movie_details_map"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
