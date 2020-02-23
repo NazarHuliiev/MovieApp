@@ -135,7 +135,6 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details), OnMapRead
 
                 map!!.addMarker(MarkerOptions().position(point)
                     .title(address.featureName)
-                    .snippet("Description some")
                     .icon(bitmapDescriptorFromVector(R.drawable.ic_movie_filter)))
 
                 val cameraPosition = CameraPosition.Builder().target(point).zoom(5f).build()
