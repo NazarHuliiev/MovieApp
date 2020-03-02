@@ -4,6 +4,8 @@ import com.nazarhuliiev.movieapp.db.entity.movie.PopularMovieEntity
 import com.nazarhuliiev.movieapp.repository.movie.Movie
 import com.nazarhuliiev.movieapp.service.movie.RemotePopularMovie
 
+private val countries = arrayOf("USA", "Great britain", "China")
+
 fun List<RemotePopularMovie>.toLocal(page: Int): List<PopularMovieEntity> {
     val localMovies = mutableListOf<PopularMovieEntity>()
 
@@ -33,6 +35,7 @@ fun PopularMovieEntity.toMovie(): Movie{
         this.releaseDate.year,
         this.voteAverage.toFloat(),
         this.page,
-        UrlHelper.getImagePath(this.posterPath)
+        UrlHelper.getImagePath(this.posterPath),
+        countries.random()
     )
 }

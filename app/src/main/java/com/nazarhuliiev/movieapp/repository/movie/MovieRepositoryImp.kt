@@ -20,7 +20,6 @@ class MovieRepositoryImp(
     override fun observePagedPopularMovies(scope: CoroutineScope)
             : LiveData<PagedList<Movie>> {
 
-
         val dataSourceFactory = popularMoviesDao.getAllMovies().map{ it.toMovie()}
 
         val config = PagedList.Config.Builder()

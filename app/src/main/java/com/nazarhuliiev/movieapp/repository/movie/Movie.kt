@@ -7,4 +7,5 @@ data class Movie(
     val year: Int,
     val rating: Float,
     val page: Int,
-    val posterPath: String)
+    val posterPath: String,
+    val country: String)
