@@ -4,10 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Geocoder
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,10 +13,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.nazarhuliiev.movieapp.GlideApp
 import com.nazarhuliiev.movieapp.R
+import com.nazarhuliiev.movieapp.views.ScrollAwareSupportMapFragment
 import kotlinx.android.synthetic.main.fragment_movie_details.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,10 +30,10 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details), OnMapRead
 
     private val args: MovieDetailsFragmentArgs by navArgs()
     private val viewModel by viewModel<MovieDetailsViewModel>()
-    private lateinit var mapView: MapView
     private lateinit var geocoder: Geocoder
     private val countries = arrayOf("USA", "Great britain", "China")
     private var countryName: String = countries.random()
+    private lateinit var mapFragment: ScrollAwareSupportMapFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,29 +42,6 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details), OnMapRead
         setHasOptionsMenu(true)
 
         geocoder = Geocoder(context)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        var rootView = super.onCreateView(inflater, container, savedInstanceState)
-
-        mapView = rootView!!.findViewById<MapView>(R.id.movie_details_map)
-
-        mapView.onCreate(savedInstanceState)
-        mapView.onResume()
-
-        try {
-            MapsInitializer.initialize(context)
-        } catch (ex: Exception ) {
-
-        }
-
-        mapView.getMapAsync(this)
-
-        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,21 +60,9 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details), OnMapRead
             movie_details_overview.text = it.overview
             movie_details_rating_view.setRating(it.rating)
         })
-    }
 
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.onDestroy()
+        mapFragment = childFragmentManager.findFragmentById(R.id.movie_details_map) as ScrollAwareSupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
     private fun loadDetailsImage() {
@@ -119,6 +85,9 @@ class MovieDetailsFragment: Fragment(R.layout.fragment_movie_details), OnMapRead
     }
 
     override fun onMapReady(p0: GoogleMap?) {
+        mapFragment.setListener {
+            movie_details_content_scroll_view.requestDisallowInterceptTouchEvent(true)
+        }
         searchCountry(p0!!)
     }
 
